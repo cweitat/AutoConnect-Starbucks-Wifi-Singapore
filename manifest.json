@@ -1,0 +1,30 @@
+{
+    "name": "AutoWifi Starbucks SG",
+    "version": "0.1",
+    "description": "Autoconnect to SB Wifi in Singapore",
+    "permissions": [
+      "declarativeContent", 
+      "storage", 
+      "alarms",
+      "https://api.ipify.org/*", 
+      "http://sb.login.org/*",
+      "http://login5.d-synergy.com/starbucks/v3/*",
+      "http://stsg.image-gmkt.com/*",
+      "https://*.google.com/"
+    ],
+    "browser_action": {
+      "default_popup": "popup.html"
+    },
+    "background": {
+        "scripts": ["background.js"],
+        "persistent": false
+      },
+      "icons": {
+        "16": "images/get_started16.png",
+        "32": "images/get_started32.png",
+        "48": "images/get_started48.png",
+        "128": "images/get_started128.png"
+      },
+    "manifest_version": 2
+  }
+  
