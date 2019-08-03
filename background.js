@@ -1,3 +1,5 @@
+//keep minitor of detection
+
 //set disconnect badge
 function dcbadge() {
   chrome.browserAction.setBadgeBackgroundColor({
@@ -35,11 +37,12 @@ function autoconnect() {
   const Http1 = new XMLHttpRequest();
   //const url1 = 'http://stsg.image-gmkt.com/css/sg/qoo10/front/cm/common/image/logo_qoo10_sub.gif';
   const url1 = 'http://login5.d-synergy.com/starbucks/v3/lpass.php';
-  const params = 'username=dsuser&dst=http%3A%2F%2Fwww.starbucks.com.sg%2F'
-  //Http1.open("POST", url1);
-  Http1.send(params);
+  // const params = 'username=dsuser&dst=http%3A%2F%2Fwww.starbucks.com.sg%2F'
+  Http1.open("POST", url1);
+  // Http1.send(params);
   Http1.send();
   Http1.onreadystatechange = (e) => {
+    console.log(Http1.readyState);
     if (Http1.readyState == 4) {
       if (Http1.status == 200) {
         //connected
@@ -59,8 +62,8 @@ chrome.runtime.onInstalled.addListener(function () {
     function checkconnectionresponse() {
       //check connection to online
       const Http = new XMLHttpRequest();
-      const url = 'http://stsg.image-gmkt.com/css/sg/qoo10/front/cm/common/image/logo_qoo10_sub.gif';
-      Http.open("GET", url);
+      const url = 'https://google.com';
+      Http.open("POST", url);
       Http.send();
       Http.onreadystatechange = (e) => {
         if (Http.readyState == 4) {
