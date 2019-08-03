@@ -28,14 +28,8 @@
       border-radius: 5px;
     }
 
-    .tablestats tr td:nth-child(1) {
-      text-align: right;
-      width: 40%;
-    }
-
-    .tablestats tr td:nth-child(2) {
-      text-align: left;
-      width: 50%;
+    .tablestats tr td {
+      text-align: center;
     }
   </style>
 </head>
@@ -44,17 +38,14 @@
   <h3>Auto Login to MyRepublic@Starbucks (Starbucks Singapore Wifi)</h2>
     <div>
       <input type="button" id="refresh" value="Refresh">
-      <div id="status"></div>
-      <h3 id="connectmsg" style="color:yellow">You are not connected to MyRepublic@Starbucks</h3>
+      <h3 id="connectmsg" style="color:yellow"></h3>
     </div>
     <br />
     <div id="statusdiv">
-      <p><strong>Status</strong></p>
+      <p><strong>SB Internet Status</strong></p>
       <table class="tablestats" style="width:100%">
         <tr>
-          <td>SB Internet status:</td>
-          <td><span id="speed"></span><span id="sis">No connection.
-            </span></td>
+          <td><span id="status1"></span></td>
         </tr>
       </table>
       <p></p>
@@ -63,7 +54,7 @@
       <p><strong>Please support by buying me a SB!</p>
           <p><strong><a href="https://paypal.me/cweitat">
             <img width="100px" src="images/NEtV.gif">
-          </a><br />Click here &#x2191; :D</strong></p>
+          </a><br />Click here &#x2191; :)</strong></p>
     </div>
     <script src="popup.js"></script>
 </body>
