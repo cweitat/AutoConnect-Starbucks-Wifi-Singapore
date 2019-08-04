@@ -5,24 +5,19 @@ function notconnectedtowifi() {
   chrome.browserAction.setBadgeText({
     text: 'X'
   });
-  chrome.runtime.sendMessage({ msg: "notconnectedtowifi" });
+  //random text send
+  chrome.runtime.sendMessage({ msg: "null" });
 }
 
 //set disconnect badge
 function dcbadge() {
-  chrome.browserAction.setBadgeBackgroundColor({
-    color: '#8B0000'
-  });
-  chrome.browserAction.setBadgeText({
-    text: 'DC'
-  });
   chrome.runtime.sendMessage({ msg: "dcbadge" });
 }
 
 //set connected badge
 function cbadge() {
   chrome.browserAction.setBadgeText({
-    text: 'CON'
+    text: '✓'
   });
   chrome.browserAction.setBadgeBackgroundColor({
     color: '#008000'
@@ -31,7 +26,7 @@ function cbadge() {
 }
 
 chrome.browserAction.setTitle({
-  title: "CON = Connected, DC = Not connected to SB Wifi"
+  title: "... = Trying, X = Not connected to SB Wifi"
 });
 
 function logout() {
@@ -89,7 +84,6 @@ function checkconnecttosbwifi() {
   const uurl = "http://sb.login.org/status";
   http3.open("GET", uurl);
   http3.send();
-  console.log("hsef");
   http3.onreadystatechange = (e) => {
     if (http3.readyState == 4) {
       if (http3.status != 200) {
@@ -103,15 +97,22 @@ function checkconnecttosbwifi() {
   }
 };
 
-chrome.runtime.onInstalled.addListener(function () {
-  actions: [new chrome.declarativeContent.ShowPageAction()]
-    checkconnecttosbwifi();
-});
-
 //liten for updte from popup.js
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse){
-    console.log("hsef");
-      if(request.msg == "checkInternet") checkconnecttosbwifi();
+      if(request.msg == "checkInternet") {
+        checkconnecttosbwifi();
+      }
   }
 );
+
+chrome.alarms.onAlarm.addListener(function(alarm) {
+  if (alarm.name === "autorun") {
+    checkconnecttosbwifi();
+  }
+});
+
+chrome.alarms.create("autorun", {
+  delayInMinutes: 1,
+  periodInMinutes: 1
+});

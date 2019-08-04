@@ -5,62 +5,32 @@ var status1 = document.getElementById("status1");
 function checkconnection() {
   // Update status to let user know options were saved.
   status1.innerHTML = "Refreshing, please wait";
-  // setTimeout(function () {
-  //   status.textContent = '';
-  // }, 500);
-
-  //check connection to sb
-  const Http = new XMLHttpRequest();
-  const url = 'http://sb.login.org/status';
-  Http.open("POST", url);
-  Http.send();
-  Http.onreadystatechange = (e) => {
-    if (Http.readyState == 4) {
-      //change this back later BUG!! supposed to be ==200
-      if (Http.status == 200) {
-        //get the data on status page
-        connectingmsg();
-      } else {
-        notconnectedtowifi();
-        chrome.browserAction.setBadgeBackgroundColor({
-          color: '#8B0000'
-        });
-        chrome.browserAction.setBadgeText({
-          text: 'X'
-        });
-      }
-    }
-  }
+  connectingmsg();
+  chrome.runtime.sendMessage({ msg: "checkInternet" });
 };
 
 function connectingmsg() {
-  connectmsg.innerHTML = "Connected to Wifi, checking for connection.";
+  connectmsg.innerHTML = "Connected to Wifi, trying for connection.";
   chrome.browserAction.setBadgeText({
     text: '...'
   });
   chrome.browserAction.setBadgeBackgroundColor({
     color: '#000'
   });
-  chrome.runtime.sendMessage({ msg: "checkInternet" });
-}
-
-function notconnectedtowifi() {
-  connectmsg.innerHTML = "You are not connected to MyRepublic@Starbucks";
-  status1.innerHTML = "No connection to internet";
-
 }
 
 //liten for updte from background.js
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse){
       if(request.msg == "dcbadge") {
-        connectmsg.innerHTML = "Connected to Wifi but no internet";
+        connectingmsg();
         status1.innerHTML = "No internet";
       } else if (request.msg == "cbadge"){
         connectmsg.innerHTML = "";
         status1.innerHTML = "Connected";
       } else {
-        notconnectedtowifi();
+        connectmsg.innerHTML = "You are not connected to MyRepublic@Starbucks";
+        status1.innerHTML = "No connection to internet";
       }
   }
 );
@@ -73,6 +43,11 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   checkconnection();
+
+  chrome.alarms.create("autorun", {
+    delayInMinutes: 1,
+    periodInMinutes: 1
+  });
 
   var links = document.getElementsByTagName("a");
   for (var i = 0; i < links.length; i++) {

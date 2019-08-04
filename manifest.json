@@ -1,6 +1,6 @@
 {
     "name": "AutoConnect Starbucks Wifi Singapore",
-    "version": "0.1.1",
+    "version": "0.2",
     "description": "Stay connected to the internet on SB Wifi in Singapore",
     "permissions": [
       "declarativeContent", 
