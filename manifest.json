@@ -1,15 +1,13 @@
 {
     "name": "AutoConnect Starbucks Wifi Singapore",
-    "version": "0.2",
+    "version": "0.2.1",
     "description": "Stay connected to the internet on SB Wifi in Singapore",
     "permissions": [
       "declarativeContent", 
       "storage", 
       "alarms",
-      "https://api.ipify.org/*", 
       "http://sb.login.org/*",
       "http://login5.d-synergy.com/starbucks/v3/*",
-      "http://stsg.image-gmkt.com/*",
       "https://*.google.com/"
     ],
     "browser_action": {
